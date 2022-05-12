@@ -19,7 +19,18 @@ set(SOURCES common.h
             vad/vad_gmm.c
             vad/vad_sp.h
             vad/vad_sp.c)
-            
+
 add_library(fvad STATIC ${SOURCES})
 set_property(TARGET fvad PROPERTY POSITION_INDEPENDENT_CODE 1)
+
+target_include_directories(fvad PUBLIC ../include)
+
+target_include_directories(fvad
+  PRIVATE SYSTEM
+    ${CMAKE_CURRENT_SOURCE_DIR}/vad
+    ${CMAKE_CURRENT_SOURCE_DIR}/signal_processing
+  PUBLIC SYSTEM
+    "../include"
+)
+
 install(TARGETS fvad DESTINATION lib)
